@@ -5,6 +5,10 @@ from ase import Atoms
 import json 
 from dscribe.descriptors import MBTR
 import pickle 
+## Notice that this assumes the train.json and test.json 
+## are in the same directory
+
+
 ### Define filename of training and test data
 train_filename = "train.json"
 test_filename = "test.json"
