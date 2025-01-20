@@ -78,7 +78,7 @@ for i, atom_test in enumerate(test_data.atoms):
     testing.append(test_fingerprint)
 
 # Store in dataframe 
-print("Store in dataframe")
+print("Storing in dataframe")
 X_train_i = pd.DataFrame(data=training, index = train_data.index)
 X_test_i = pd.DataFrame(data=testing, index = test_data.index)
 y = train_data.hform
