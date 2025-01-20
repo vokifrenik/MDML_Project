@@ -7,8 +7,6 @@ from dscribe.descriptors import MBTR
 import pickle 
 ## Notice that this assumes the train.json and test.json 
 ## are in the same directory
-
-
 ### Define filename of training and test data
 train_filename = "train.json"
 test_filename = "test.json"
@@ -17,14 +15,12 @@ test_filename = "test.json"
 
 cwd = __file__.split("/")[1:-1]
 
-train_dir = ""
-test_dir = ""
+curr_dir = ""
 for dir in cwd:
-    train_dir += "/" + dir 
-    test_dir += "/" + dir 
+    curr_dir += "/" + dir 
 
-train_dir += "/" + train_filename
-test_dir += "/" + test_filename
+train_dir = curr_dir + "/" + train_filename
+test_dir = curr_dir +  "/" + test_filename
 print("") 
 print(train_dir)
 print("")
@@ -35,6 +31,7 @@ print("")
 
 train_data = pd.DataFrame(json.load(open(train_dir, "rb")))
 test_data = pd.DataFrame(json.load(open(test_dir, "rb")))
+print(test_data.id)
 
 train_data.atoms = train_data.atoms.apply(lambda x: Atoms(**x))
 test_data.atoms = test_data.atoms.apply(lambda x: Atoms(**x))
@@ -61,6 +58,7 @@ mbtr = MBTR(
 # Transform data into fingerprint vector
 training = []
 testing = []
+testing_ids = []
 # Transforming train data 
 for i, atom_train in enumerate(train_data.atoms):
     if i % 1000 == 0:
@@ -70,12 +68,13 @@ for i, atom_train in enumerate(train_data.atoms):
     training.append(train_fingerprint)
 
 # Transforming test data
-for i, atom_test in enumerate(test_data.atoms):
+for i, (id, atom_test) in enumerate(zip(test_data.id, test_data.atoms)):
     if i % 1000 == 0:
         print("Converted test data fingerprints:")
         print(i)
     test_fingerprint = mbtr.create(atom_test)
     testing.append(test_fingerprint)
+    testing_ids.append(id)
 
 # Store in dataframe 
 print("Storing in dataframe")
@@ -109,10 +108,12 @@ print("Store in dictionary")
 data_dict = {}
 data_dict["xp"] = X_train
 data_dict["yp"] = y
-data_dict["test"] = X_test 
+data_dict["test"] = X_test
+data_dict["test_ids"] = testing_ids
 
 # Save the data dictionary as pickle 
-with open("data_dict.pkl", "wb") as f:
+
+with open(curr_dir + "data_dict.pkl", "wb") as f:
     pickle.dump(data_dict, f)
 
 
