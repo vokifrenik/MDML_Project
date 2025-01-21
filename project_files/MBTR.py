@@ -15,12 +15,14 @@ test_filename = "test.json"
 
 cwd = __file__.split("/")[1:-1]
 
-curr_dir = ""
+data_dir = ""
 for dir in cwd:
-    curr_dir += "/" + dir 
-
-train_dir = curr_dir + "/" + train_filename
-test_dir = curr_dir +  "/" + test_filename
+    data_dir += "/" + dir
+    if dir == "MDML_Project":
+        break  
+data_dir += "/data"
+train_dir = data_dir + "/" + train_filename
+test_dir = data_dir +  "/" + test_filename
 print("") 
 print(train_dir)
 print("")
