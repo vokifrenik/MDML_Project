@@ -5,6 +5,7 @@
 import numpy as np
 import pandas as pd
 import json
+from sklearn.decomposition import PCA
 from dscribe.descriptors import CoulombMatrix
 from ase import Atoms
 import matplotlib.pyplot as plt
@@ -95,3 +96,10 @@ np.shape(soap_mats)
 # %%
 X = pd.DataFrame(data = soap_mats, index=train.id)
 y = train['hform']
+
+n_comp_PCA = 200
+
+pca = PCA(n_components = n_comp_PCA).fit(X)
+X_PCA = pca.transform(X)
+print("With {} PCA components {var:0.4f}% of the variance is explained".format(n_comp_PCA, var = 100*np.sum(pca.explained_variance_ratio_)))
+
