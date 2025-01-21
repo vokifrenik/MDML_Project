@@ -115,7 +115,7 @@ data_dict["test_ids"] = testing_ids
 
 # Save the data dictionary as pickle 
 
-with open(curr_dir + "data_dict.pkl", "wb") as f:
+with open(data_dir + "data_dict.pkl", "wb") as f:
     pickle.dump(data_dict, f)
 
 
