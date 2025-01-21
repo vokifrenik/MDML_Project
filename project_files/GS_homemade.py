@@ -17,7 +17,7 @@ for dir in cwd:
     if dir == "MDML_Project":
         break 
 
-data_dir +="/" + "data" + "/" + data_file
+data_dir +="/data" + "/" + data_file
 print("")
 print(data_dir)
 print("")
@@ -29,7 +29,6 @@ with open(data_dir, "rb") as f:
 
 xp = data_dict["xp"]
 tp = data_dict["yp"]
-
 
 
 # Build kernel 
