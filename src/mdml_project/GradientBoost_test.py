@@ -7,6 +7,8 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from Coulomb import *
 import joblib
+from xgboost import XGBRegressor
+import optuna
 
 # Assuming X and y are already defined as in your code
 # X = pd.DataFrame(data = cmats, index=train.id)
@@ -20,8 +22,8 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-#print(X_PCA.shape)
-#print(X_train)
+print(X_PCA.shape)
+print(X_train.shape)
 
 # Define the model
 gb_model = GradientBoostingRegressor(random_state=42)
